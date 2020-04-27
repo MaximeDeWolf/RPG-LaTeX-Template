@@ -2,6 +2,7 @@
 \RequirePackage[newparttoc]{titlesec}	% Used to adjust (sub)section formatting
 \RequirePackage{amssymb}
 \RequirePackage{everypage}
+\RequirePackage{xcolor}
 
 \iftoggle{multitoc}{%
   \RequirePackage[toc]{multitoc}
@@ -13,6 +14,7 @@
     logo=,
     title=Title,
     subtitle=subtitle,
+    color=black
     ]{
     \onecolumn
     \thispagestyle{empty}
@@ -20,15 +22,15 @@
         \tikz[remember picture,overlay] \node[inner sep=0pt] at (current page.center){\includegraphics[width=\paperwidth,height=\paperheight]{\commandkey{image}}};
     }
     \begin{center}
-        \vspace*{-15mm}\includegraphics[width=3cm]{\commandkey{logo}}\\*\vspace*{15mm}
+        \vspace*{-15mm}\includegraphics[width=0.33\linewidth]{\commandkey{logo}}\\*\vspace*{15mm}
         \nodesto%
         \fontsize{48pt}{48pt}
         \selectfont
-        \fillstroke{[1]}{[0]}{1.5}{\MakeUppercase{\commandkey{title}}}\\*
-        \normalfont\normalsize\includegraphics[width=.5\paperwidth]{lib/book/img/separator}
-        \LARGE\vfill
+        \fillstroke{[1]}{[0]}{1.5}{\textcolor{\commandkey{color}}{\MakeUppercase{\commandkey{title}}}}\\*
+        \normalfont\normalsize\includegraphics[width=.5\paperwidth]{lib/book/img/separator}\\
+        %\LARGE\vfill
         \fontsize{18pt}{18pt}
-        \fillstroke{[1]}{[0]}{0.5}{\textbf{\commandkey{subtitle}}}
+        \fillstroke{[1]}{[0]}{0.5}{\textcolor{\commandkey{color}}{\textbf{\commandkey{subtitle}}}}
     \end{center}
     \clearpage
     \twocolumn%
@@ -75,8 +77,8 @@
 [display]
 {\thispagestyle{part}\nodesto\fontsize{50pt}{50pt}\selectfont\color{title1}\filcenter}
 {\partname \thepart}
-{-15pt}
-{\Large}
+{-10pt}
+{\huge}
 
 \titlespacing*{\part}{0pt}{-54pt}{0pt}
 
