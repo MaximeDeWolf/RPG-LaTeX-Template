@@ -3,10 +3,15 @@
 \RequirePackage{amssymb}
 \RequirePackage{everypage}
 \RequirePackage{xcolor}
+\RequirePackage{ifthen}
+
 
 \iftoggle{multitoc}{%
   \RequirePackage[toc]{multitoc}
 }{}
+
+\newboolean{default}
+\setboolean{default}{true}
 
 % cover
 \newkeycommand\rpgMakeCover[
@@ -14,7 +19,8 @@
     logo=,
     title=Title,
     subtitle=subtitle,
-    color=black
+    color=black,
+    separator=\boolean{default}
     ]{
     \onecolumn
     \thispagestyle{empty}
@@ -27,9 +33,13 @@
         \fontsize{48pt}{48pt}
         \selectfont
         \fillstroke{[1]}{[0]}{1.5}{\textcolor{\commandkey{color}}{\MakeUppercase{\commandkey{title}}}}\\*
-        \normalfont\normalsize\includegraphics[width=.5\paperwidth]{lib/book/img/separator}\\
+        \normalfont\normalsize
+        \ifthenelse{\commandkey{separator}}{
+            \includegraphics[width=.5\paperwidth]{lib/book/img/separator}\\
+        }{}
         %\LARGE\vfill
-        \fontsize{18pt}{18pt}
+        \vspace*{2mm}
+        \fontsize{22pt}{22pt}
         \fillstroke{[1]}{[0]}{0.5}{\textcolor{\commandkey{color}}{\textbf{\commandkey{subtitle}}}}
     \end{center}
     \clearpage
