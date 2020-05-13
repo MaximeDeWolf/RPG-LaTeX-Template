@@ -6,6 +6,7 @@
 %\usepackage[utf8]{inputenc}
 \usepackage{lipsum}
 
+\usepackage{ifthen}
 
 % Start document
 \begin{document}
@@ -13,11 +14,16 @@
 \selectfont % Set text font
 \frontmatter
 
+\newboolean{separator}
+\setboolean{separator}{false}
+
 \rpgMakeCover[
     image = img/cover,
     logo = img/logo,
     title = Rpg Template,
-    subtitle = Created by Krozark the \today\\with XeTeX\\\url{https://github.com/Krozark/RPG-LaTeX-Template}
+    subtitle = Created by Krozark the \today\\with XeTeX\\\url{https://github.com/Krozark/RPG-LaTeX-Template},
+    color= green!40!black,
+    separator=\boolean{separator}
 ]
 
 
