@@ -1,4 +1,3 @@
-
 % define sizes
 \pgfmathsetmacro{\cardwidth}{6}
 \pgfmathsetmacro{\cardheight}{9}
@@ -16,7 +15,9 @@
 \def\shapeLeftStripShort{(\strippadding,\cardheight-\strippadding-1) rectangle (\strippadding+\stripwidth,\cardheight+0.2)}
 \def\shapeRightStripShort{(\cardwidth-\stripwidth-\strippadding,\cardheight-\strippadding-1) rectangle (\cardwidth-\strippadding,\cardheight+0.2)}
 \def\shapeTitleArea{(2*\strippadding+\stripwidth,\cardheight-\strippadding) rectangle (\cardwidth-2*\strippadding-\stripwidth,\cardheight-2*\stripwidth)}
-\def\shapeContentAreaHeight{0.50*\cardheight}
+%\def\shapeContentAreaHeight{0.50*\cardheight}
+%Make content area begin just after the title
+\def\shapeContentAreaHeight{\cardheight - 2*\stripwidth}
 \def\shapeContentArea{(2*\strippadding+\stripwidth,\shapeContentAreaHeight) rectangle (\cardwidth+0.2,-0.2)}
 
 
@@ -83,7 +84,7 @@
 %   Category of the card
 \newcommand{\cardtype}[4]{
     %   First we fill the intersecting area
-    %   The \clip command does not allow options, therefore 
+    %   The \clip command does not allow options, therefore
     %   we have to use a scope to set the even odd rule.
     \begin{scope}[even odd rule]
         %   Define a clipping path. All paths outside shapeCard will
@@ -118,17 +119,32 @@
 
 %   Contents of the card
 \newcommand{\cardcontent}[2]{
+    % Text Background
     \begin{scope}[even odd rule]
         \clip[cardcorners] \shapeCard;
         \fill[elementcorners,rpg_card_contentbg,opacity=.85] \shapeContentArea;
     \end{scope}
-    \node[below right, text width=(\cardwidth-2*\strippadding-\stripwidth-2*\textpadding-0.3)*1cm] at (2*\strippadding+\stripwidth+\textpadding,\shapeContentAreaHeight-\textpadding) {
-        \textit{\footnotesize #1}
-    };
-    \node[below right, text width=(\cardwidth-2*\strippadding-\stripwidth-2*\textpadding-0.3)*1cm] at (2*\strippadding+\stripwidth+\textpadding,0.73*\shapeContentAreaHeight) {
+    \node[below right, text width=(\cardwidth-2*\strippadding-\stripwidth-2*\textpadding-0.3)*1cm] at (2*\strippadding+\stripwidth+\textpadding,\shapeContentAreaHeight) {
+        % Compute the height of the feature text of the spell
+        \newdimen\height
+        \setbox0=\vbox{
+            \begin{adjustbox}{minipage=[t][][t]{\textwidth},clip=true,trim=0cm 0cm 0cm 0cm}
+                \footnotesize #1
+            \end{adjustbox}}
+        \height= \ht0 \advance\height by \dp0
+        %Tranform the variable in Tikz variable
+        % The height must be multiply by the magic constant "0.042" to be used as Tikz coordinate
+        \pgfmathsetmacro{\caractHeight}{0.042 * \the\height}
+        % 23.8 is the inverse of 0.042 and thus, convert tikz coordinate to pt
+        \pgfmathsetlengthmacro{\descHeight}{23.8*(\shapeContentAreaHeight - \caractHeight + \stripwidth)}
+
+        % Display the feature text and cut the description text in order to avoid it the
+        % overflows the card
+        \footnotesize #1
         \vrule width \textwidth height 2pt \\[-2pt]
-        \vspace{0.2cm}
-        {\scriptsize #2}
+        \begin{adjustbox}{minipage=[t][\descHeight][t]{\textwidth},clip=true,trim=0cm 0cm 0cm 0cm}
+            \scriptsize #2
+        \end{adjustbox}
     };
 }
 

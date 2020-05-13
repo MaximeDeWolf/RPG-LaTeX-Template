@@ -15,6 +15,7 @@
 \usetikzlibrary{shadows}
 \usepackage{pifont}
 \usepackage{fourier-orns}
+\usepackage{adjustbox}
 
 %%% internal
 \usepackage{lib/card/style}
@@ -23,7 +24,16 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%% style
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\cardtypeAbjuration}{\cardtype{rpg_card_abjurationbg}{Abjuration}{\includegraphics[width=1cm]{lib/card/img/Abjuration.png}}{}}
+\newcommand{\cardtypeConjuration}{\cardtype{rpg_card_conjurationbg}{Conjuration}{\includegraphics[width=1cm]{lib/card/img/Conjuration.png}}{}}
+\newcommand{\cardtypeDivination}{\cardtype{rpg_card_divinationbg}{Divination}{\includegraphics[width=1cm]{lib/card/img/Divination.png}}{}}
+\newcommand{\cardtypeEnchantment}{\cardtype{rpg_card_enchantmentbg}{Enchantement}{\includegraphics[width=1cm]{lib/card/img/Enchantment.png}}{}}
+\newcommand{\cardtypeEvocation}{\cardtype{rpg_card_evocationbg}{Evocation}{\includegraphics[width=1cm]{lib/card/img/Evocation.png}}{}}
+\newcommand{\cardtypeIllusion}{\cardtype{rpg_card_illusionbg}{Illusion}{\includegraphics[width=1cm]{lib/card/img/Illusion.png}}{}}
+\newcommand{\cardtypeNecromancy}{\cardtype{rpg_card_necromancybg}{Nécromancie}{\includegraphics[width=1cm]{lib/card/img/Necromancy.png}}{}}
+\newcommand{\cardtypeTransmutation}{\cardtype{rpg_card_transmutationbg}{Transmutation}{\includegraphics[width=1cm]{lib/card/img/Transmutation.png}}{}}
+\newcommand{\cardtypeUniversal}{\cardtype{rpg_card_universalbg}{Universel}{\includegraphics[width=1cm]{lib/card/img/Universal.png}}{}}
 
 \newcommand{\cardtypeEquipement}[2]{\cardtype{rpg_card_equipementbg}{Équipement}{\includegraphics[width=0.5cm]{\detokenize{#1}}}{ - #2}}
-\newcommand{\cardtypeObject}[1]{\cardtype{rpg_card_objetbg}{Objet}{\includegraphics[width=0.5cm]{lib/card/img/backpack.png}}{ - #1}}
+\newcommand{\cardtypeObject}[1]{\cardtype{rpg_card_objetbg}{Objet}{\includegraphics[width=0.5cm]{img/backpack.png}}{ - #1}}
 \newcommand{\cardtypeMonster}{\cardtype{rpg_card_monsterbg}{Monster}{\includegraphics[width=0.5cm]{lib/card/img/monster-grasp.png}}{}}
